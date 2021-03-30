@@ -31,26 +31,6 @@ command! -range -bar TDChar
 command! -range -bang -bar EDChar
 				\ call diffchar#EchoDiffChar(range(<line1>, <line2>), <bang>1)
 
-" Configurable Keymaps
-for [key, plg, cmd] in [
-	\['[b', '<Plug>JumpDiffCharPrevStart',
-									\':call diffchar#JumpDiffChar(0, 0)'],
-	\[']b', '<Plug>JumpDiffCharNextStart',
-									\':call diffchar#JumpDiffChar(1, 0)'],
-	\['[e', '<Plug>JumpDiffCharPrevEnd',
-									\':call diffchar#JumpDiffChar(0, 1)'],
-	\[']e', '<Plug>JumpDiffCharNextEnd',
-									\':call diffchar#JumpDiffChar(1, 1)'],
-	\['<Leader>g', '<Plug>GetDiffCharPair',
-									\':call diffchar#CopyDiffCharPair(0)'],
-	\['<Leader>p', '<Plug>PutDiffCharPair',
-									\':call diffchar#CopyDiffCharPair(1)']]
-	if !hasmapto(plg, 'n') && empty(maparg(key, 'n'))
-		execute 'nmap <silent> ' . key . ' ' . plg
-	endif
-	execute 'nnoremap <silent> ' plg . ' ' . cmd . '<CR>'
-endfor
-
 " a type of difference unit
 if !exists('g:DiffUnit')
 	let g:DiffUnit = 'Word1'	" \w\+ word and any \W single character
