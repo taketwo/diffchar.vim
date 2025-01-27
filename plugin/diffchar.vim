@@ -61,28 +61,6 @@ if !exists('g:DiffPairVisible') " a visibility of corresponding diff units
   " let g:DiffPairVisible = 4 " highlight + popup/floating at mouse pos
 endif
 
-" Keymaps
-for [key, plg, cmd] in [
-  \['[b', '<Plug>JumpDiffCharPrevStart',
-                                  \':<C-U>call diffchar#JumpDiffChar(0, 0)'],
-  \[']b', '<Plug>JumpDiffCharNextStart',
-                                  \':<C-U>call diffchar#JumpDiffChar(1, 0)'],
-  \['[e', '<Plug>JumpDiffCharPrevEnd',
-                                  \':<C-U>call diffchar#JumpDiffChar(0, 1)'],
-  \[']e', '<Plug>JumpDiffCharNextEnd',
-                                  \':<C-U>call diffchar#JumpDiffChar(1, 1)'],
-  \['<Leader>g', '<Plug>GetDiffCharPair',
-                                  \':<C-U>call diffchar#CopyDiffCharPair(0)'],
-  \['<Leader>p', '<Plug>PutDiffCharPair',
-                                  \':<C-U>call diffchar#CopyDiffCharPair(1)']]
-  if !hasmapto(plg, 'n') && maparg(key, 'n') =~ '^$\|_defaults.lua'
-    if get(g:, 'DiffCharDoMapping', 1)
-      call execute('nmap <silent> ' . key . ' ' . plg)
-    endif
-  endif
-  call execute('nnoremap <silent> ' . plg . ' ' . cmd . '<CR>')
-endfor
-
 " Event groups
 let g:DiffCharInitEvent = ['augroup diffchar', 'autocmd!',
                 \'autocmd OptionSet diff call diffchar#ToggleDiffModeSync()',
